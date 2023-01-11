@@ -2,7 +2,7 @@
 @section('title','Dashboard')
 @push('css')
     @once
-    
+
     @endonce
 @endpush
 @section('content')
@@ -12,12 +12,12 @@
         <div class="col-sm-6 col-xl-3">
             <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
                 <i class="fa fa-solid fa-book  fa-3x text-primary"></i>
-              
+
                 <div class="ms-3">
                     <p class="mb-2">Total Barang</p>
                     <h6 class="mb-0">{{ $barang }}</h6>
                 </div>
-           
+
             </div>
         </div>
         <div class="col-sm-6 col-xl-3">
@@ -58,16 +58,17 @@
         <div class="col-sm-12 col-xl-6">
             <div class="bg-light text-center rounded p-4">
                 <div class="d-flex align-items-center justify-content-between mb-4">
-                    <h6 class="mb-0">Worldwide Sales</h6>
+                    <h6 class="mb-0">Transaksi Tahun Ini</h6>
                     <a href="">Show All</a>
                 </div>
                 <canvas id="worldwide-sales"></canvas>
+                {{-- <canvas id="myChart"></canvas> --}}
             </div>
         </div>
         <div class="col-sm-12 col-xl-6">
             <div class="bg-light text-center rounded p-4">
                 <div class="d-flex align-items-center justify-content-between mb-4">
-                    <h6 class="mb-0">Salse & Revenue</h6>
+                    <h6 class="mb-0">Pemasukan Tahun Ini</h6>
                     <a href="">Show All</a>
                 </div>
                 <canvas id="salse-revenue"></canvas>
@@ -276,6 +277,57 @@
 @endsection
 @push('script')
     @once
-    
+   <script>
+    var ctx1 = $("#worldwide-sales").get(0).getContext("2d");
+    var myChart1 = new Chart(ctx1, {
+        type: "bar",
+        data: {
+            labels: ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli","Agustus",
+            "September", "Oktober","November","Desember"],
+            datasets: [{
+                    label: "Penjualan",
+                    data: [{{ $pj_jan }}, {{ $pj_feb }}, {{ $pj_mar }}, {{ $pj_apr }}, {{ $pj_mei }}
+                    , {{ $pj_jun }},{{ $pj_jul }}, {{ $pj_agu }},{{ $pj_sep }},{{ $pj_okt }},{{ $pj_nov }},{{ $pj_des }}],
+                    backgroundColor: "rgba(0, 156, 255, .7)"
+                },
+                {
+                    label: "Pembelian",
+                    data: [{{ $pb_jan }}, {{ $pb_feb }}, {{ $pb_mar }}, {{ $pb_apr }}, {{ $pb_mei }}
+                    , {{ $pb_jun }},{{ $pb_jul }}, {{ $pb_agu }},{{ $pb_sep }},{{ $pb_okt }},{{ $pb_nov }},{{ $pb_des }}],
+                    backgroundColor: "rgb( 255, 0, .0)"
+                }
+            ]
+            },
+        options: {
+            responsive: true
+        }
+    });
+
+
+    var ctx2 = $("#salse-revenue").get(0).getContext("2d");
+    var myChart2 = new Chart(ctx2, {
+        type: "line",
+        data: {
+            labels: ["Januari", "2017", "2018", "2019", "2020", "2021", "2022"],
+            datasets: [{
+                    label: "Pemasukan",
+                    data: [15, 30, 55, 45, 70, 65, 85],
+                    backgroundColor: "rgba(0, 156, 255, .5)",
+                    fill: true
+                },
+                {
+                    label: "Revenue",
+                    data: [99, 135, 170, 130, 190, 180, 270],
+                    backgroundColor: "rgba(0, 156, 255, .3)",
+                    fill: true
+                }
+            ]
+            },
+        options: {
+            responsive: true
+        }
+    });
+
+   </script>
     @endonce
 @endpush
