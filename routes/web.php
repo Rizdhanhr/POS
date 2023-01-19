@@ -12,6 +12,7 @@ use App\Http\Controllers\PembelianController;
 use App\Http\Controllers\DataStokController;
 use App\Http\Controllers\LaporanPenjualanController;
 use App\Http\Controllers\LaporanPembelianController;
+use App\Http\Controllers\PenyesuaianController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -33,6 +34,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::middleware(['auth'])->group(function () {
     Route::resource('/dashboard', DashboardController::class);
+    Route::get('/get-data',[DashboardController::class,'getdata']);
     Route::resource('/kategori', KategoriController::class);
     Route::resource('/satuan', SatuanController::class);
     Route::resource('/brand', BrandController::class);
@@ -52,4 +54,5 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/cetak-penjualan/{no_trx}',[PenjualanController::class,'cetak'])->name('cetak-penjualan');
     Route::get('/lap-pembelian-cari',[LaporanPembelianController::class,'cari'])->name('cari-pembelian');
     Route::get('/lap-penjualan-cari',[LaporanPenjualanController::class,'cari'])->name('cari-penjualan');
+    Route::resource('/penyesuaian', PenyesuaianController::class);
 });

@@ -2,6 +2,9 @@
 @section('title','Dashboard')
 @push('css')
     @once
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" ></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
 
     @endonce
 @endpush
@@ -156,54 +159,7 @@
 <!-- Widgets Start -->
 <div class="container-fluid pt-4 px-4">
     <div class="row g-4">
-        <div class="col-sm-12 col-md-6 col-xl-4">
-            <div class="h-100 bg-light rounded p-4">
-                <div class="d-flex align-items-center justify-content-between mb-2">
-                    <h6 class="mb-0">Messages</h6>
-                    <a href="">Show All</a>
-                </div>
-                <div class="d-flex align-items-center border-bottom py-3">
-                    <img class="rounded-circle flex-shrink-0" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
-                    <div class="w-100 ms-3">
-                        <div class="d-flex w-100 justify-content-between">
-                            <h6 class="mb-0">Jhon Doe</h6>
-                            <small>15 minutes ago</small>
-                        </div>
-                        <span>Short message goes here...</span>
-                    </div>
-                </div>
-                <div class="d-flex align-items-center border-bottom py-3">
-                    <img class="rounded-circle flex-shrink-0" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
-                    <div class="w-100 ms-3">
-                        <div class="d-flex w-100 justify-content-between">
-                            <h6 class="mb-0">Jhon Doe</h6>
-                            <small>15 minutes ago</small>
-                        </div>
-                        <span>Short message goes here...</span>
-                    </div>
-                </div>
-                <div class="d-flex align-items-center border-bottom py-3">
-                    <img class="rounded-circle flex-shrink-0" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
-                    <div class="w-100 ms-3">
-                        <div class="d-flex w-100 justify-content-between">
-                            <h6 class="mb-0">Jhon Doe</h6>
-                            <small>15 minutes ago</small>
-                        </div>
-                        <span>Short message goes here...</span>
-                    </div>
-                </div>
-                <div class="d-flex align-items-center pt-3">
-                    <img class="rounded-circle flex-shrink-0" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
-                    <div class="w-100 ms-3">
-                        <div class="d-flex w-100 justify-content-between">
-                            <h6 class="mb-0">Jhon Doe</h6>
-                            <small>15 minutes ago</small>
-                        </div>
-                        <span>Short message goes here...</span>
-                    </div>
-                </div>
-            </div>
-        </div>
+
         <div class="col-sm-12 col-md-6 col-xl-4">
             <div class="h-100 bg-light rounded p-4">
                 <div class="d-flex align-items-center justify-content-between mb-4">
@@ -213,61 +169,28 @@
                 <div id="calender"></div>
             </div>
         </div>
-        <div class="col-sm-12 col-md-6 col-xl-4">
+        <div id="table-posts" class="col-sm-12 col-md-6 col-xl-4">
             <div class="h-100 bg-light rounded p-4">
                 <div class="d-flex align-items-center justify-content-between mb-4">
                     <h6 class="mb-0">To Do List</h6>
                     <a href="">Show All</a>
                 </div>
+
                 <div class="d-flex mb-2">
-                    <input class="form-control bg-transparent" type="text" placeholder="Enter task">
-                    <button type="button" class="btn btn-primary ms-2">Add</button>
+                    <input class="form-control bg-transparent" type="text" name="nama" id="nama" placeholder="Enter task">
+                    <button type="button" class="btn btn-primary ms-2 add_todo"  >Add</button>
                 </div>
-                <div class="d-flex align-items-center border-bottom py-2">
-                    <input class="form-check-input m-0" type="checkbox">
+
+                @foreach ($todolist as $todo)
+                <div id="index_{{ $todo->id }}" class="d-flex align-items-center border-bottom py-2">
                     <div class="w-100 ms-3">
-                        <div class="d-flex w-100 align-items-center justify-content-between">
-                            <span>Short task goes here...</span>
-                            <button class="btn btn-sm"><i class="fa fa-times"></i></button>
+                        <div  class="d-flex w-100 align-items-center justify-content-between">
+                            <span>{{ $todo->nama }}</span>
+                            <a href="javascript:void(0)" id="btn-delete-post" data-id="{{ $todo->id }}" class="btn btn-sm"><i class="fa fa-times"></i></a>
                         </div>
                     </div>
                 </div>
-                <div class="d-flex align-items-center border-bottom py-2">
-                    <input class="form-check-input m-0" type="checkbox">
-                    <div class="w-100 ms-3">
-                        <div class="d-flex w-100 align-items-center justify-content-between">
-                            <span>Short task goes here...</span>
-                            <button class="btn btn-sm"><i class="fa fa-times"></i></button>
-                        </div>
-                    </div>
-                </div>
-                <div class="d-flex align-items-center border-bottom py-2">
-                    <input class="form-check-input m-0" type="checkbox" checked>
-                    <div class="w-100 ms-3">
-                        <div class="d-flex w-100 align-items-center justify-content-between">
-                            <span><del>Short task goes here...</del></span>
-                            <button class="btn btn-sm text-primary"><i class="fa fa-times"></i></button>
-                        </div>
-                    </div>
-                </div>
-                <div class="d-flex align-items-center border-bottom py-2">
-                    <input class="form-check-input m-0" type="checkbox">
-                    <div class="w-100 ms-3">
-                        <div class="d-flex w-100 align-items-center justify-content-between">
-                            <span>Short task goes here...</span>
-                            <button class="btn btn-sm"><i class="fa fa-times"></i></button>
-                        </div>
-                    </div>
-                </div>
-                <div class="d-flex align-items-center pt-2">
-                    <input class="form-check-input m-0" type="checkbox">
-                    <div class="w-100 ms-3">
-                        <div class="d-flex w-100 align-items-center justify-content-between">
-                            <span>Short task goes here...</span>
-                            <button class="btn btn-sm"><i class="fa fa-times"></i></button>
-                        </div>
-                    </div>
-                </div>
+                @endforeach
             </div>
         </div>
     </div>
@@ -277,6 +200,7 @@
 @endsection
 @push('script')
     @once
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
    <script>
     var ctx1 = $("#worldwide-sales").get(0).getContext("2d");
     var myChart1 = new Chart(ctx1, {
@@ -308,17 +232,20 @@
     var myChart2 = new Chart(ctx2, {
         type: "line",
         data: {
-            labels: ["Januari", "2017", "2018", "2019", "2020", "2021", "2022"],
+            labels: ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli","Agustus",
+            "September", "Oktober","November","Desember"],
             datasets: [{
                     label: "Pemasukan",
-                    data: [15, 30, 55, 45, 70, 65, 85],
-                    backgroundColor: "rgba(0, 156, 255, .5)",
+                    data: [{{ $pm_jan }}, {{ $pm_feb }}, {{ $pm_mar }}, {{ $pm_apr }}, {{ $pm_mei }}
+                    , {{ $pm_jun }},{{ $pm_jul }}, {{ $pm_agu }},{{ $pm_sep }},{{ $pm_okt }},{{ $pm_nov }},{{ $pm_des }}],
+                    backgroundColor: "rgba(0, 156, 255, .7)",
                     fill: true
                 },
                 {
-                    label: "Revenue",
-                    data: [99, 135, 170, 130, 190, 180, 270],
-                    backgroundColor: "rgba(0, 156, 255, .3)",
+                    label: "Pengeluaran",
+                    data: [{{ $pr_jan }}, {{ $pr_feb }}, {{ $pr_mar }}, {{ $pr_apr }}, {{ $pr_mei }}
+                    , {{ $pr_jun }},{{ $pr_jul }}, {{ $pr_agu }},{{ $pr_sep }},{{ $pr_okt }},{{ $pr_nov }},{{ $pr_des }}],
+                    backgroundColor: "rgb( 255, 0, .0)",
                     fill: true
                 }
             ]
@@ -327,6 +254,50 @@
             responsive: true
         }
     });
+
+
+
+
+    $(document).ready(function () {
+        $(document).on('click','.add_todo',function (e) {
+            e.preventDefault();
+
+            var data = {
+                'nama' : $('#nama').val(),
+            }
+
+            $.ajaxSetup({
+                headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+
+
+            $.ajax({
+                type : "POST",
+                url : "{{ route('dashboard.store') }}",
+                data : data,
+                dataType : "json",
+                success : function (response){
+                    let todo = `
+                    <div id="index_${response.data.id}" class="d-flex align-items-center border-bottom py-2">
+                    <div class="w-100 ms-3">
+                        <div  class="d-flex w-100 align-items-center justify-content-between">
+                            <span>${response.data.nama}</span>
+                            <a href="javascript:void(0)" id="btn-delete-post" data-id="${response.data.id}" class="btn btn-sm"><i class="fa fa-times"></i></a>
+                        </div>
+                    </div>
+                   </div>
+                 `;
+                 $('#table-posts').append(todo);
+                 $('#nama').val('');
+                }
+            });
+        });
+    });
+
+
 
    </script>
     @endonce
