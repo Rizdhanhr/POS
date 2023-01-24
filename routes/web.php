@@ -14,6 +14,7 @@ use App\Http\Controllers\LaporanPenjualanController;
 use App\Http\Controllers\LaporanPembelianController;
 use App\Http\Controllers\LaporanPenyesuaianController;
 use App\Http\Controllers\PenyesuaianController;
+use App\Http\Controllers\ManajemenUserController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -32,6 +33,10 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::middleware(['auth','CekLevel'])->group(function (){
+    Route::resource('/manajemen-user', ManajemenUserController::class);
+});
 
 Route::middleware(['auth'])->group(function () {
     Route::resource('/dashboard', DashboardController::class);
@@ -60,4 +65,5 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('/lap-penyesuaian',LaporanPenyesuaianController::class);
     Route::get('/lap-penyesuaian-cari',[LaporanPenyesuaianController::class,'cari'])->name('cari-penyesuaian');
     Route::get('/lap-penyesuaian-cetak/{no_penyesuaian}',[LaporanPenyesuaianController::class,'cetak'])->name('lap-penyesuaian-cetak');
+
 });

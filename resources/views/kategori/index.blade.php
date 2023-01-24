@@ -30,11 +30,11 @@
                         <td>{{ $no++ }}</td>
                         <td>{{ $k->nama }}</td>
                         <td>
-                   
+
                             <a class="btn btn-sm btn-primary" href="{{ route('kategori.show',$k->id) }}">Detail</a>
                             <a class="btn btn-sm btn-success" href="{{ route('kategori.edit',$k->id) }}">Edit</a>
                             <button  type="button" data-bs-toggle="modal" data-bs-target="#hapus-{{ $k->id }}" class="btn btn-sm btn-danger">Hapus</button>
-                  
+
                         </td>
                     </tr>
                     @endforeach
