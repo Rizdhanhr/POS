@@ -9,9 +9,9 @@
             cursor: pointer;
             transition: 0.3s;
           }
-          
+
           #myImg:hover {opacity: 0.7;}
-          
+
           /* The Modal (background) */
           .modal {
             display: none; /* Hidden by default */
@@ -26,7 +26,7 @@
             background-color: rgb(0,0,0); /* Fallback color */
             background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
           }
-          
+
           /* Modal Content (Image) */
           .modal-content {
             margin: auto;
@@ -34,7 +34,7 @@
             width: 80%;
             max-width: 700px;
           }
-          
+
           /* Caption of Modal Image (Image Text) - Same Width as the Image */
           #caption {
             margin: auto;
@@ -46,18 +46,18 @@
             padding: 10px 0;
             height: 150px;
           }
-          
+
           /* Add Animation - Zoom in the Modal */
           .modal-content, #caption {
             animation-name: zoom;
             animation-duration: 0.6s;
           }
-          
+
           @keyframes zoom {
             from {transform:scale(0)}
             to {transform:scale(1)}
           }
-          
+
           /* The Close Button */
           .close {
             position: absolute;
@@ -68,14 +68,14 @@
             font-weight: bold;
             transition: 0.3s;
           }
-          
+
           .close:hover,
           .close:focus {
             color: #bbb;
             text-decoration: none;
             cursor: pointer;
           }
-          
+
           /* 100% Image Width on Smaller Screens */
           @media only screen and (max-width: 500px){
             .modal-content {
@@ -138,37 +138,37 @@
                         </div>
                         <div class="mb-3">
                             <label for="" class="form-label">Kategori</label>
-                            <select class="form-select @error('kategori') is-invalid @enderror" aria-label="Default select example" name="kategori"> 
+                            <select class="form-select @error('kategori') is-invalid @enderror" aria-label="Default select example" name="kategori">
                                 <option selected>Pilih Kategori</option>
                                 @foreach ($kategori as $kater)
                                 <option {{ $b->id_kategori==$kater->id ? 'selected' : '' }} value="{{ $kater->id }}">{{ $kater->nama }}</option>
                                 @endforeach
-                              </select>     
-                              <span style="color : red">@error('kategori') {{ $message }} @enderror</span>                     
+                              </select>
+                              <span style="color : red">@error('kategori') {{ $message }} @enderror</span>
                         </div>
                         <div class="mb-3">
                             <label for="" class="form-label">Satuan</label>
-                            <select class="form-select @error('satuan') is-invalid @enderror" aria-label="Default select example" name="satuan"> 
+                            <select class="form-select @error('satuan') is-invalid @enderror" aria-label="Default select example" name="satuan">
                                 <option selected>Pilih Satuan</option>
                                 @foreach ($satuan as $sater)
                                 <option {{ $b->id_satuan==$sater->id ? 'selected' : '' }} value="{{ $sater->id }}">{{ $sater->nama }}</option>
                                 @endforeach
-                              </select>              
-                              <span style="color : red">@error('satuan') {{ $message }} @enderror</span>                
+                              </select>
+                              <span style="color : red">@error('satuan') {{ $message }} @enderror</span>
                         </div>
                         <div class="mb-3">
                             <label for="" class="form-label ">Brand</label>
-                            <select class="form-select @error('brand') is-invalid @enderror" aria-label="Default select example" name="brand"> 
+                            <select class="form-select @error('brand') is-invalid @enderror" aria-label="Default select example" name="brand">
                                 <option selected>Pilih Brand</option>
                                 @foreach ($brand as $bre)
                                 <option {{ $b->id_brand==$bre->id ? 'selected' : '' }} value="{{ $bre->id }}">{{ $bre->nama }}</option>
                                 @endforeach
-                              </select>         
-                              <span style="color : red">@error('brand') {{ $message }} @enderror</span>                     
+                              </select>
+                              <span style="color : red">@error('brand') {{ $message }} @enderror</span>
                         </div>
                         <div class="mb-3">
                             <label for="Nama Barang" class="form-label">Stok</label>
-                            <input type="number" name="stok" class="form-control @error('stok') is-invalid @enderror" value="{{ $b->stok }}">
+                            <input type="number" name="stok" class="form-control @error('stok') is-invalid @enderror" value="{{ $b->stok }}" readonly>
                             <span style="color : red">@error('stok') {{ $message }} @enderror</span>
                         </div>
                         <div class="mb-3">
@@ -210,10 +210,10 @@
 
                         <!-- The Close Button -->
                         <span class="close">&times;</span>
-                      
+
                         <!-- Modal Content (The Image) -->
                         <img class="modal-content" id="img01">
-                      
+
                         <!-- Modal Caption (Image Text) -->
                         <div id="caption"></div>
                       </div>
@@ -229,16 +229,16 @@
                 </div>
             </form>
             @endforeach
-        </div>       
+        </div>
     </div>
- 
+
 </div>
 
 
 <!-- Recent Sales End -->
 
 
-        
+
 <!-- Recent Sales End -->
 @endsection
 @push('script')

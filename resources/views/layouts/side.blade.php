@@ -53,7 +53,7 @@
                 <div class="dropdown-menu bg-transparent border-0">
                     <a href="{{ url('lap-penjualan') }}" class="dropdown-item">Penjualan</a>
                     <a href="{{ url('lap-pembelian') }}" class="dropdown-item">Pembelian</a>
-                    <a href="" class="dropdown-item">Penyesuaian</a>
+                    <a href="{{ url('lap-penyesuaian') }}" class="dropdown-item">Penyesuaian</a>
                 </div>
             </div>
             <a href="{{ url('supplier') }}" class="nav-item nav-link"><i class="fa fa-car me-2"></i>Supplier</a>

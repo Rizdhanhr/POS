@@ -57,5 +57,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/lap-penjualan-cari',[LaporanPenjualanController::class,'cari'])->name('cari-penjualan');
     Route::resource('/penyesuaian', PenyesuaianController::class);
     Route::post('/proses-penyesuaian',[PenyesuaianController::class,'proses'])->name('proses-penyesuaian');
-    Route::resource('/lap-penyesuaian',PenyesuaianController::class);
+    Route::resource('/lap-penyesuaian',LaporanPenyesuaianController::class);
+    Route::get('/lap-penyesuaian-cari',[LaporanPenyesuaianController::class,'cari'])->name('cari-penyesuaian');
+    Route::get('/lap-penyesuaian-cetak/{no_penyesuaian}',[LaporanPenyesuaianController::class,'cetak'])->name('lap-penyesuaian-cetak');
 });
