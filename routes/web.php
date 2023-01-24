@@ -12,6 +12,7 @@ use App\Http\Controllers\PembelianController;
 use App\Http\Controllers\DataStokController;
 use App\Http\Controllers\LaporanPenjualanController;
 use App\Http\Controllers\LaporanPembelianController;
+use App\Http\Controllers\LaporanPenyesuaianController;
 use App\Http\Controllers\PenyesuaianController;
 /*
 |--------------------------------------------------------------------------
@@ -55,4 +56,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/lap-pembelian-cari',[LaporanPembelianController::class,'cari'])->name('cari-pembelian');
     Route::get('/lap-penjualan-cari',[LaporanPenjualanController::class,'cari'])->name('cari-penjualan');
     Route::resource('/penyesuaian', PenyesuaianController::class);
+    Route::post('/proses-penyesuaian',[PenyesuaianController::class,'proses'])->name('proses-penyesuaian');
+    Route::resource('/lap-penyesuaian',PenyesuaianController::class);
 });
