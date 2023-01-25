@@ -16,7 +16,7 @@ class ManajemenUserController extends Controller
      */
     public function index()
     {
-        $user = DB::table('users')->get();
+        $user = User::all();
         return view('manajemen_user.index',compact('user'));
     }
 
@@ -50,6 +50,7 @@ class ManajemenUserController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
+        toastr()->success('Data berhasil ditambahkan!');
         return redirect('/manajemen-user');
 
 
@@ -86,7 +87,23 @@ class ManajemenUserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
+        $this->validate($request,[
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255',
+            'password' => 'required|string|min:8|max:12'
+        ]);
+
+            DB::table('users')->where('id',$id)->update([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => Hash::make($request->password)
+            ]);
+
+
+        toastr()->success('Data berhasil diupdate!');
+        return redirect()->back();
+
     }
 
     /**
@@ -97,6 +114,17 @@ class ManajemenUserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try{
+            DB::transaction(function () use($id){
+
+               DB::table('users')->where('id',$id)->delete();
+
+            });
+            toastr()->success('Data berhasil dihapus!');
+            return redirect()->back();
+
+        }catch(Exception $e){
+
+        }
     }
 }

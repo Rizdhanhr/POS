@@ -44,7 +44,7 @@
                 <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-keyboard me-2"></i>Stok</a>
                 <div class="dropdown-menu bg-transparent border-0">
                     <a href="button.html" class="dropdown-item">Data Stok</a>
-                    <a href="typography.html" class="dropdown-item">Stok Menipis</a>
+                    <a href="{{ url('stok-menipis') }}" class="dropdown-item">Stok Menipis</a>
                     <a href="element.html" class="dropdown-item">Mutasi</a>
                 </div>
             </div>

@@ -54,8 +54,8 @@
                             @endif
                         </td>
                         <td>
-                            <a class="btn btn-sm btn-success" href="">Edit</a>
-                            <button  type="button" data-bs-toggle="modal" data-bs-target="#hapus-" class="btn btn-sm btn-danger">Hapus</button>
+                            <button  type="button" data-bs-toggle="modal" data-bs-target="#edit-{{ $u->id }}" class="btn btn-sm btn-success">Edit</button>
+                            <button  type="button" data-bs-toggle="modal" data-bs-target="#hapus-{{ $u->id }}" class="btn btn-sm btn-danger">Hapus</button>
 
                         </td>
                     </tr>
@@ -83,28 +83,32 @@
                     <label for="" class="form-label">Nama</label>
                     <div class="input-group mb-3">
                       <input name="name" type="text" value="{{ old('name') }}" class="input form-control @error('name') is-invalid @enderror" id="username" placeholder="Masukkan Nama" aria-label="Username" aria-describedby="basic-addon1" />
-                      <span style="color : red">@error('name') {{ $message }} @enderror</span>
+                    </br>
                     </div>
+                    <span style="color : red">@error('name') {{ $message }} @enderror</span>
                   </div>
                 <div class="col-12">
                   <label for="" class="form-label">Email</label>
                   <div class="input-group mb-3">
                     <input name="email" type="email" value="{{ old('email') }}" class="input form-control @error('email') is-invalid @enderror" id="username" placeholder="Masukkan Email" aria-label="Username" aria-describedby="basic-addon1" />
-                    <span style="color : red">@error('email') {{ $message }} @enderror</span>
+                  </br>
                   </div>
+                  <span style="color : red">@error('email') {{ $message }} @enderror</span>
                 </div>
                 <div class="col-12">
                   <label for="" class="form-label">Password</label>
                   <div class="input-group mb-3">
                     <input name="password" type="password" value="{{ old('password') }}" class="input form-control @error('password') is-invalid @enderror" id="password" placeholder="Masukkan Password" required="true" aria-label="password" aria-describedby="basic-addon1" />
-                    <span style="color : red">@error('password') {{ $message }} @enderror</span>
+
                     <div class="input-group-append">
                       <span class="input-group-text" onclick="password_show_hide();">
                         <i class="fas fa-eye" id="show_eye"></i>
                         <i class="fas fa-eye-slash d-none" id="hide_eye"></i>
                       </span>
                     </div>
+                </br>
                   </div>
+                  <span style="color : red">@error('password') {{ $message }} @enderror</span>
                 </div>
               </div>
         </div>
@@ -117,6 +121,92 @@
     </div>
   </div>
 {{-- EndModalTambah --}}
+
+@foreach($user as $u)
+<!-- Modal Edit -->
+<div class="modal fade" id="edit-{{ $u->id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">Edit Data User</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form action="{{ route('manajemen-user.update',$u->id) }}" method="POST">
+        @csrf
+        @method('PUT')
+        <div class="modal-body">
+            <div class="form-row">
+                <div class="col-12">
+                    <label for="" class="form-label">Nama</label>
+                    <div class="input-group mb-3">
+                      <input name="name" type="text" value="{{ $u->name }}" class="input form-control @error('name') is-invalid @enderror" id="username" placeholder="Masukkan Nama" aria-label="Username" aria-describedby="basic-addon1" />
+                    </br>
+                    </div>
+
+                <span style="color : red">@error('name') {{ $message }} @enderror</span>
+                  </div>
+                <div class="col-12">
+                  <label for="" class="form-label">Email</label>
+                  <div class="input-group mb-3">
+                    <input name="email" type="email" value="{{ $u->email }}" class="input form-control @error('email') is-invalid @enderror" id="username" placeholder="Masukkan Email" aria-label="Username" aria-describedby="basic-addon1" readonly/>
+                </br>
+                  </div>
+
+                <span style="color : red">@error('email') {{ $message }} @enderror</span>
+                </div>
+                <div class="col-12">
+                  <label for="" class="form-label">Password</label>
+                  <div class="input-group mb-3">
+                    <input name="password" type="password" value="{{ old('password') }}" class="input form-control @error('password') is-invalid @enderror" id="password" placeholder="Masukkan Password Baru"  aria-label="password" aria-describedby="basic-addon1" />
+
+                    <div class="input-group-append">
+                      <span class="input-group-text" onclick="password_show_hide();">
+                        <i class="fas fa-eye" id="show_eye"></i>
+                        <i class="fas fa-eye-slash d-none" id="hide_eye"></i>
+                      </span>
+                    </div>
+                </br>
+                  </div>
+                <span style="color : red">@error('password') {{ $message }} @enderror</span>
+                </div>
+              </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Simpan</button>
+        </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  {{-- Modal Edit --}}
+  @endforeach
+
+<!-- Modal -->
+@foreach($user as $u)
+<div class="modal fade" id="hapus-{{ $u->id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">Hapus Data</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            Apakah anda ingin menghapus user?
+        </div>
+        <form action="{{ route('manajemen-user.destroy',$u->id) }}" method="POST">
+        @csrf
+        @method('DELETE')
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+          <button type="submit" class="btn btn-danger">Hapus</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  @endforeach
+  {{-- ModalHapus --}}
+
 @endsection
 @push('script')
     @once

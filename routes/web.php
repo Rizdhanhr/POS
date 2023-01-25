@@ -15,6 +15,8 @@ use App\Http\Controllers\LaporanPembelianController;
 use App\Http\Controllers\LaporanPenyesuaianController;
 use App\Http\Controllers\PenyesuaianController;
 use App\Http\Controllers\ManajemenUserController;
+use App\Http\Controllers\StokMenipisController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -65,5 +67,5 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('/lap-penyesuaian',LaporanPenyesuaianController::class);
     Route::get('/lap-penyesuaian-cari',[LaporanPenyesuaianController::class,'cari'])->name('cari-penyesuaian');
     Route::get('/lap-penyesuaian-cetak/{no_penyesuaian}',[LaporanPenyesuaianController::class,'cetak'])->name('lap-penyesuaian-cetak');
-
+    Route::resource('/stok-menipis', StokMenipisController::class);
 });

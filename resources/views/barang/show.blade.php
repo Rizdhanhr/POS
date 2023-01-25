@@ -9,9 +9,9 @@
             cursor: pointer;
             transition: 0.3s;
           }
-          
+
           #myImg:hover {opacity: 0.7;}
-          
+
           /* The Modal (background) */
           .modal {
             display: none; /* Hidden by default */
@@ -26,7 +26,7 @@
             background-color: rgb(0,0,0); /* Fallback color */
             background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
           }
-          
+
           /* Modal Content (Image) */
           .modal-content {
             margin: auto;
@@ -34,7 +34,7 @@
             width: 80%;
             max-width: 700px;
           }
-          
+
           /* Caption of Modal Image (Image Text) - Same Width as the Image */
           #caption {
             margin: auto;
@@ -46,18 +46,18 @@
             padding: 10px 0;
             height: 150px;
           }
-          
+
           /* Add Animation - Zoom in the Modal */
           .modal-content, #caption {
             animation-name: zoom;
             animation-duration: 0.6s;
           }
-          
+
           @keyframes zoom {
             from {transform:scale(0)}
             to {transform:scale(1)}
           }
-          
+
           /* The Close Button */
           .close {
             position: absolute;
@@ -68,14 +68,14 @@
             font-weight: bold;
             transition: 0.3s;
           }
-          
+
           .close:hover,
           .close:focus {
             color: #bbb;
             text-decoration: none;
             cursor: pointer;
           }
-          
+
           /* 100% Image Width on Smaller Screens */
           @media only screen and (max-width: 500px){
             .modal-content {
@@ -90,7 +90,7 @@
     <div class="row g-4">
         <div class="col-sm-12 col-xl-12">
             <div class="bg-light rounded h-100 p-4">
-                <h6 class="mb-4">Tambah Barang</h6>
+                <h6 class="mb-4">Detail Barang</h6>
                 {{-- <form action="{{ route('supplier.store') }}" method="POST">
                     @csrf
                     <div class="mb-3">
@@ -125,8 +125,8 @@
                     </li>
                 </ul>
                 @foreach($barang as $b)
-               
-            
+
+
                 <div class="tab-content" id="myTabContent">
                     <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                     </br>
@@ -177,7 +177,7 @@
                             <label for="staticEmail" class="col-sm-2 col-form-label">Harga Jual</label>
                                 <div class="col-sm-10">
                                     <input type="text" readonly class="form-control-plaintext" id="staticEmail" value=": @currency($b->harga_jual)">
-                                    
+
                                 </div>
                         </div>
                 </div>
@@ -193,7 +193,7 @@
                             @endif
                         </div>
                 </div>
-               
+
                 <div class="mb-3 row">
                     <label for="staticEmail" class="col-sm-2 col-form-label">Lokasi</label>
                         <div class="col-sm-10">
@@ -214,28 +214,28 @@
 
                         <!-- The Close Button -->
                         <span class="close">&times;</span>
-                      
+
                         <!-- Modal Content (The Image) -->
                         <img class="modal-content" id="img01">
-                      
+
                         <!-- Modal Caption (Image Text) -->
                         <div id="caption"></div>
                       </div>
                 </div>
-               
+
                 </div>
-            
+
             @endforeach
-        </div>       
+        </div>
     </div>
- 
+
 </div>
 
 
 <!-- Recent Sales End -->
 
 
-        
+
 <!-- Recent Sales End -->
 @endsection
 @push('script')
