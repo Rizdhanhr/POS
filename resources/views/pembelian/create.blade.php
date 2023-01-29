@@ -86,7 +86,7 @@
                         <div class="col-md-12">
                             <label for="validationCustom03" class="form-label">Supplier :</label>
                             <select class="form-select js-example-basic-single @error('supplier') is-invalid @enderror" name="supplier" aria-label="Default select example">
-                                <option selected>Open this select menu</option>
+                                <option selected>Pilih Supplier</option>
                                 @foreach($supplier as $s)
                                 <option value="{{ $s->id }}">{{ $s->nama }}</option>
                                 @endforeach

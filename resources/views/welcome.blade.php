@@ -187,10 +187,10 @@
                         <!-- Mashead text and app badges-->
                         <div class="mb-5 mb-lg-0 text-center text-lg-start">
                             <h1 class="display-1 lh-1 mb-3">Point Of Sale System</h1>
-                            <p class="lead fw-normal text-muted mb-5">Kelola Bisnis Lebih Mudah dari Satu Aplikasi</p>
+                            <p class="lead fw-normal text-muted mb-5">Kelola Bisnis Lebih Mudah dari Satu Website</p>
                             <div class="d-flex flex-column flex-lg-row align-items-center">
-                                <a class="me-lg-3 mb-4 mb-lg-0" href="#!"><img class="app-badge" src="{{ asset('rumah') }}/assets/img/google-play-badge.svg" alt="..." /></a>
-                                <a href="#!"><img class="app-badge" src="{{ asset('rumah') }}/assets/img/app-store-badge.svg" alt="..." /></a>
+                                <a class="me-lg-3 mb-4 mb-lg-0" target="blank" href="https://github.com/Rizdhanhr"><img class="app-badge" src="{{ asset('rumah') }}/assets/img/github.svg" style="width: 200px; height: 100px;" alt="..." /></a>
+                                {{-- <a href="#!"><img class="app-badge" src="{{ asset('rumah') }}/assets/img/ig.png" alt="..." /></a> --}}
                             </div>
                         </div>
                     </div>
@@ -226,14 +226,14 @@
             </div>
         </header>
         <!-- Quote/testimonial aside-->
-       
+
         <!-- App badge section-->
         <section class="bg-gradient-primary-to-secondary" id="download">
             <div class="container px-5">
                 <h2 class="text-center text-white font-alt mb-4">Dapatkan Aplikasi Sekarang</h2>
                 <div class="d-flex flex-column flex-lg-row align-items-center justify-content-center">
-                    <a class="me-lg-3 mb-4 mb-lg-0" href="#!"><img class="app-badge" src="{{ asset('rumah') }}/assets/img/google-play-badge.svg" alt="..." /></a>
-                    <a href="#!"><img class="app-badge" src="{{ asset('rumah') }}/assets/img/app-store-badge.svg" alt="..." /></a>
+                    <a class="me-lg-3 mb-4 mb-lg-0" href="https://github.com/Rizdhanhr"><img class="app-badge" src="{{ asset('rumah') }}/assets/img/github.svg" style="width: 200px; height: 100px;" alt="..." /></a>
+
                 </div>
             </div>
         </section>
@@ -266,51 +266,44 @@
                         <!-- To make this form functional, sign up at-->
                         <!-- https://startbootstrap.com/solution/contact-forms-->
                         <!-- to get an API token!-->
-                        <form id="contactForm" data-sb-form-api-token="API_TOKEN">
+                        {{-- <form id="contactForm" data-sb-form-api-token="API_TOKEN"> --}}
                             <!-- Name input-->
+                            <form  action="{{ url('feedback') }}" method="POST">
+                            @csrf
                             <div class="form-floating mb-3">
-                                <input class="form-control" id="name" type="text" placeholder="Enter your name..." data-sb-validations="required" />
+                                <input class="form-control" id="name" name="name" type="text" placeholder="Enter your name..."  required/>
                                 <label for="name">Full name</label>
-                                <div class="invalid-feedback" data-sb-feedback="name:required">A name is required.</div>
+
                             </div>
                             <!-- Email address input-->
                             <div class="form-floating mb-3">
-                                <input class="form-control" id="email" type="email" placeholder="name@example.com" data-sb-validations="required,email" />
+                                <input class="form-control" id="email" name="email" type="email" placeholder="name@example.com"  required/>
                                 <label for="email">Email address</label>
-                                <div class="invalid-feedback" data-sb-feedback="email:required">An email is required.</div>
-                                <div class="invalid-feedback" data-sb-feedback="email:email">Email is not valid.</div>
+
                             </div>
                             <!-- Phone number input-->
                             <div class="form-floating mb-3">
-                                <input class="form-control" id="phone" type="tel" placeholder="(123) 456-7890" data-sb-validations="required" />
+                                <input class="form-control" name="phone" id="phone" type="number" placeholder="(123) 456-7890"  required/>
                                 <label for="phone">Phone number</label>
-                                <div class="invalid-feedback" data-sb-feedback="phone:required">A phone number is required.</div>
+
                             </div>
                             <!-- Message input-->
                             <div class="form-floating mb-3">
-                                <textarea class="form-control" id="message" type="text" placeholder="Enter your message here..." style="height: 10rem" data-sb-validations="required"></textarea>
+                                <textarea class="form-control" name="message" id="message" type="text" placeholder="Enter your message here..." style="height: 10rem" required></textarea>
                                 <label for="message">Message</label>
-                                <div class="invalid-feedback" data-sb-feedback="message:required">A message is required.</div>
+
                             </div>
                             <!-- Submit success message-->
                             <!---->
                             <!-- This is what your users will see when the form-->
                             <!-- has successfully submitted-->
-                            <div class="d-none" id="submitSuccessMessage">
-                                <div class="text-center mb-3">
-                                    <div class="fw-bolder">Form submission successful!</div>
-                                    To activate this form, sign up at
-                                    <br />
-                                    <a href="https://startbootstrap.com/solution/contact-forms">https://startbootstrap.com/solution/contact-forms</a>
-                                </div>
-                            </div>
+
                             <!-- Submit error message-->
                             <!---->
                             <!-- This is what your users will see when there is-->
                             <!-- an error submitting the form-->
-                            <div class="d-none" id="submitErrorMessage"><div class="text-center text-danger mb-3">Error sending message!</div></div>
-                            <!-- Submit Button-->
-                            <div class="d-grid"><button class="btn btn-primary rounded-pill btn-lg disabled" id="submitButton" type="submit">Submit</button></div>
+
+                            <div class="d-grid"><button class="btn btn-primary rounded-pill" id="submitButton" type="submit">Submit</button></div>
                         </form>
                     </div>
                 </div>

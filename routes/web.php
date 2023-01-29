@@ -16,6 +16,7 @@ use App\Http\Controllers\LaporanPenyesuaianController;
 use App\Http\Controllers\PenyesuaianController;
 use App\Http\Controllers\ManajemenUserController;
 use App\Http\Controllers\StokMenipisController;
+use App\Http\Controllers\FeedbackController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,6 +36,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::post('/feedback',[FeedbackController::class,'store']);
 
 Route::middleware(['auth','CekLevel'])->group(function (){
     Route::resource('/manajemen-user', ManajemenUserController::class);

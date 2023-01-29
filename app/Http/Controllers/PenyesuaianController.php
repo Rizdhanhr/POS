@@ -100,8 +100,11 @@ class PenyesuaianController extends Controller
                 ->count();
 
                 if($cek > 0){
-                    toastr()->error('barang sedang dalam proses!');
-                    return redirect()->back();
+                    DB::table('detail_penyesuaian')->where('id_barang',$request->barang)->update([
+                        'stok_aktual' => $request->stok_aktual,
+                        'keterangan' => $request->keterangan,
+                    ]);
+                    toastr()->success('barang berhasil disesuaikan!');
                 }else{
                     DB::table('detail_penyesuaian')->insert([
                         'id_barang' => $request->barang,
@@ -111,7 +114,7 @@ class PenyesuaianController extends Controller
                         'created_at' => date('Y-m-d H:i:s'),
                         'created_by' => $user->id
                     ]);
-                    toastr()->success('barang berhasil disesuaikan!');
+                    toastr()->success('barang berhasil ditambahkan!');
                 }
             });
             return redirect()->back();
@@ -162,7 +165,15 @@ class PenyesuaianController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try{
+            DB::transaction(function () use($id){
+                DB::table('detail_penyesuaian')->where('id',$id)->delete();
+            });
+            toastr()->success('success','Data penyesuaian dibatalkan!');
+            return redirect()->back();
+        }catch(Exception $e){
+
+        }
     }
 
     public function proses(Request $request){
@@ -184,7 +195,11 @@ class PenyesuaianController extends Controller
                 }
 
                 $user = Auth::user();
-                DB::table('detail_penyesuaian')
+                $cek = DB::table('detail_penyesuaian')->where('status',0)->where('created_by',$user->id)->count();
+                if($cek == 0){
+                    toastr()->error('Data kosong!');
+                }else{
+                    DB::table('detail_penyesuaian')
                 ->where('status',0)
                 ->where('created_by',$user->id)
                 ->update([
@@ -214,8 +229,10 @@ class PenyesuaianController extends Controller
                     'catatan' => $request->catatan,
                     'created_by' => $user->id,
                 ]);
+                toastr()->success('success','Penyesuaian berhasil!');
+                }
             });
-            toastr()->success('success','Penyesuaian berhasil!');
+
             return redirect()->back();
         }catch(Exception $e){
 

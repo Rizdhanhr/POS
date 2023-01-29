@@ -209,6 +209,8 @@ class PembelianController extends Controller
 
             $this->validate($request,[
              'supplier' => 'required|gt:0'
+            ],[
+                'supplier.gt' => 'Pilih supplier!'
             ]);
 
         try{

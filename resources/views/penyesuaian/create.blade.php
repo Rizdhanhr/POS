@@ -75,7 +75,7 @@
                         <td>{{ $dt->stok_aktual }}</td>
                         <td>{{ $dt->stok_tercatat-$dt->stok_aktual}}</td>
                         <td>
-                            <form action="{{ route('penyesuaian.destroy',$dt->id) }}">
+                            <form action="{{ route('penyesuaian.destroy',$dt->id) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger btn-sm">Hapus</button>

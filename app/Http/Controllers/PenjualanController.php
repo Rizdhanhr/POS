@@ -28,6 +28,19 @@ class PenjualanController extends Controller
      */
     public function create()
     {
+
+        $kode = 'TRX';
+        $barang = DB::select('SELECT SUM(total) as jumlah FROM ( SELECT COUNT(DISTINCT(no_trx)) as total FROM detail_penjualan where status = 1 GROUP BY no_trx ) hasil');
+
+                // DD((int)$barang[0]->jumlah+1);
+        if($barang[0]->jumlah < 10){
+            $sku = $kode.'00'.((int)$barang[0]->jumlah+1);
+        }else if($barang[0]->jumlah > 10 && $barang[0]->jumlah < 100){
+            $sku = $kode.'0'.((int)$barang[0]->jumlah+1);
+        }else{
+            $sku = $kode.((int)$barang[0]->jumlah+1);
+        }
+
         $user = Auth::user();
         $barang = DB::table('barang')->get();
         $penjualan = DB::table('detail_penjualan')
@@ -42,7 +55,7 @@ class PenjualanController extends Controller
         ->where('status',0)
         ->where('id_user',$user->id)
         ->sum('subtotal');
-        return view('penjualan.create',compact('penjualan','barang','total','user'));
+        return view('penjualan.create',compact('penjualan','barang','total','user','sku'));
     }
 
     /**
@@ -70,7 +83,7 @@ class PenjualanController extends Controller
                 ->where('id_barang',$request->barang)
                 ->where('status',0)
                 ->count();
-                
+
                 $cekstok = DB::table('barang')->where('id',$request->barang)->first();
 
                 if ($cekstok->stok < $request->jumlah){
@@ -107,10 +120,10 @@ class PenjualanController extends Controller
                     toastr()->success('Barang berhasil dimasukkan cart!');
                 }
 
-                
-                
+
+
             });
-            
+
             return redirect()->back();
         }catch(Exception $e){
             toastr()->error('Barang gagal dimasukkan cart!');
@@ -188,7 +201,8 @@ class PenjualanController extends Controller
             'bayar' => 'required_with:total|gte:total|integer'
            ],
            [
-            'bayar.gte' => 'Uang yang anda masukkan kurang!'
+            'bayar.gte' => 'Uang yang anda masukkan kurang!',
+            'bayar.required_with' => 'Masukkan uang anda!',
            ]
         );
 
@@ -197,7 +211,7 @@ class PenjualanController extends Controller
                 $user = Auth::user();
                 $kode = 'TRX';
                 $barang = DB::select('SELECT SUM(total) as jumlah FROM ( SELECT COUNT(DISTINCT(no_trx)) as total FROM detail_penjualan where status = 1 GROUP BY no_trx ) hasil');
-               
+
                 // DD((int)$barang[0]->jumlah+1);
                 if($barang[0]->jumlah < 10){
                     $sku = $kode.'00'.((int)$barang[0]->jumlah+1);
@@ -206,52 +220,60 @@ class PenjualanController extends Controller
                 }else{
                     $sku = $kode.((int)$barang[0]->jumlah+1);
                 }
-    
-                DB::table('detail_penjualan')->where('status',0)->update(
-                    [
-                        'no_trx' => $sku,
-                        'status' => 1,
-                        'created_at' => date('Y-m-d H:i:s'),
-                        'updated_at' => date('Y-m-d H:i:s'),
-                        'created_by' => $user->id,
-                        'updated_by' => $user->id
-                    ]
-                );
+                $hitung= DB::table('detail_penjualan')->where('status',0)->count();
 
-            $updatebarang = DB::table('detail_penjualan')
-            ->join('barang','barang.id','detail_penjualan.id_barang')
-            ->where('no_trx',$sku)
-            ->get(array(
-                'detail_penjualan.*',
-                'barang.stok as barang_stok',
-            ));
-            
-            foreach($updatebarang as $row){
-                DB::table('barang')->where('id',$row->id_barang)->update(
-                    [
-                        'stok' => $row->barang_stok - $row->jumlah
-                    ]
-                );
-            }
-          
-            $jumlah = DB::table('detail_penjualan')
-            ->where('no_trx',$sku)->sum('jumlah');
-            $harga = DB::table('detail_penjualan')
-            ->where('no_trx',$sku)->sum('subtotal');
-            DB::table('penjualan')->insert([
-                'no_trx' => $sku,
-                'jumlah' => $jumlah,
-                'harga' => $harga,
-                'bayar' => $request->bayar,
-                'kembali' => $request->kembali,
-                'created_at' => date('Y-m-d H:i:s'),
-                'updated_at' => date('Y-m-d H:i:s'),
-                'created_by' => $user->id,
-                'updated_by' => $user->id
-            ]);
+                if($hitung == 0){
+                    toastr()->error('error','Data tidak ada!');
+                }else{
+                    DB::table('detail_penjualan')->where('status',0)->update(
+                        [
+                            'no_trx' => $sku,
+                            'status' => 1,
+                            'created_at' => date('Y-m-d H:i:s'),
+                            'updated_at' => date('Y-m-d H:i:s'),
+                            'created_by' => $user->id,
+                            'updated_by' => $user->id
+                        ]
+                    );
+
+                $updatebarang = DB::table('detail_penjualan')
+                ->join('barang','barang.id','detail_penjualan.id_barang')
+                ->where('no_trx',$sku)
+                ->get(array(
+                    'detail_penjualan.*',
+                    'barang.stok as barang_stok',
+                ));
+
+                foreach($updatebarang as $row){
+                    DB::table('barang')->where('id',$row->id_barang)->update(
+                        [
+                            'stok' => $row->barang_stok - $row->jumlah
+                        ]
+                    );
+                }
+
+                $jumlah = DB::table('detail_penjualan')
+                ->where('no_trx',$sku)->sum('jumlah');
+                $harga = DB::table('detail_penjualan')
+                ->where('no_trx',$sku)->sum('subtotal');
+                DB::table('penjualan')->insert([
+                    'no_trx' => $sku,
+                    'jumlah' => $jumlah,
+                    'harga' => $harga,
+                    'bayar' => $request->bayar,
+                    'kembali' => $request->kembali,
+                    'created_at' => date('Y-m-d H:i:s'),
+                    'updated_at' => date('Y-m-d H:i:s'),
+                    'created_by' => $user->id,
+                    'updated_by' => $user->id
+                ]);
+                toastr()->success('success','Transaksi berhasil!');
+                }
+
+
             });
-            toastr()->success('success','Transaksi berhasil!');
-            return redirect('penjualan');
+
+            return redirect()->back();
         }catch(Exception $e){
             return redirect()->back();
         }
