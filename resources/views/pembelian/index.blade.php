@@ -20,7 +20,7 @@
                         <th scope="col">No Transaksi</th>
                         <th scope="col">Jumlah</th>
                         <th scope="col">Harga</th>
-                        <th scope="col" width="20%">Action</th>
+                        <th scope="col" width="15%">Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -34,12 +34,12 @@
                         <td>{{ $k->jumlah }}</td>
                         <td>@currency($k->harga)</td>
                         <td>
-                       
+
                             <a type="submit"  target="_blank" class="btn btn-sm btn-success" href="{{ url('cetak',$k->no_trx) }}">Cetak</a>
                             <a type="button" class="btn btn-sm btn-primary" href="{{ route('pembelian.show',$k->no_trx) }}">Detail</a>
                             {{-- <a class="btn btn-sm btn-success" href="{{ route('pembelian.edit',$k->id) }}">Edit</a> --}}
-                            <button  type="button" data-bs-toggle="modal" data-bs-target="#hapus-{{ $k->id }}" class="btn btn-sm btn-danger">Hapus</button>
-                           
+                            {{-- <button  type="button" data-bs-toggle="modal" data-bs-target="#hapus-{{ $k->id }}" class="btn btn-sm btn-danger">Hapus</button> --}}
+
                         </td>
                     </tr>
                     @endforeach
@@ -51,7 +51,7 @@
 <!-- Recent Sales End -->
 
 {{-- Modal Hapus --}}
-@foreach($pembelian as $k)
+{{-- @foreach($pembelian as $k)
 <div class="modal fade" id="hapus-{{ $k->id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -74,7 +74,7 @@
     </div>
   </div>
 @endforeach
-{{-- Modal Hapus End --}}
+Modal Hapus End --}}
 
 @endsection
 @push('script')

@@ -21,7 +21,6 @@
                 <div class="dropdown-menu bg-transparent border-0">
                     <a href="{{ route('barang.create') }}" class="dropdown-item">Tambah Barang</a>
                     <a href="{{ url('barang') }}" class="dropdown-item">Data Barang</a>
-                    <a href="element.html" class="dropdown-item">Other Elements</a>
                 </div>
             </div>
             <div class="nav-item dropdown">

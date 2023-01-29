@@ -20,7 +20,7 @@
                         <th scope="col" width="20%">No Transaksi</th>
                         <th scope="col" width="10%">Jumlah</th>
                         <th scope="col">Harga</th>
-                        <th scope="col" width="20%">Action</th>
+                        <th scope="col" width="15%">Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -36,7 +36,7 @@
                         <td>
                             <a class="btn btn-sm btn-success" target="_blank" href="{{ route('cetak-penjualan',$p->no_trx) }}">Cetak</a>
                             <a class="btn btn-sm btn-primary" href="{{ route('penjualan.show',$p->no_trx) }}">Detail</a>
-                            <button  type="button" data-bs-toggle="modal" data-bs-target="#hapus-{{ $p->id }}" class="btn btn-sm btn-danger">Hapus</button>
+                            {{-- <button  type="button" data-bs-toggle="modal" data-bs-target="#hapus-{{ $p->id }}" class="btn btn-sm btn-danger">Hapus</button> --}}
                         </td>
                     </tr>
                     @endforeach
@@ -47,7 +47,7 @@
 </div>
 <!-- Recent Sales End -->
 
-{{-- Modal Hapus --}}
+{{-- Modal Hapus
 @foreach($penjualan as $p)
 <div class="modal fade" id="hapus-{{ $p->id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -70,7 +70,7 @@
       </div>
     </div>
   </div>
-@endforeach
+@endforeach --}}
 {{-- Modal Hapus End --}}
 
 @endsection
