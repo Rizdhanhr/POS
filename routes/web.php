@@ -70,4 +70,5 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/lap-penyesuaian-cari',[LaporanPenyesuaianController::class,'cari'])->name('cari-penyesuaian');
     Route::get('/lap-penyesuaian-cetak/{no_penyesuaian}',[LaporanPenyesuaianController::class,'cetak'])->name('lap-penyesuaian-cetak');
     Route::resource('/stok-menipis', StokMenipisController::class);
+    Route::get('/export-excel-pembelian',[LaporanPembelianController::class,'cetakexcel'])->name('excel-pembelian');
 });

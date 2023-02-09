@@ -11,10 +11,9 @@
     <div class="bg-light text-center rounded p-4">
         <div class="d-flex align-items-center justify-content-between mb-4">
             <h6 class="mb-0">Stok Menipis</h6>
-
         </div>
         <div class="table-responsive">
-            <table id="table_mahasiswa" class="table text-start align-middle table-bordered table-hover mb-0">
+            <table  class="table text-start align-middle table-bordered table-hover mb-0">
                 <thead>
                     <tr class="text-dark">
                         <th scope="col" width="10%">No</th>
@@ -50,9 +49,9 @@
     @once
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
     <script>
-        $(document).ready( function () {
-            $('#table_mahasiswa').DataTable();
-        });
+        // $(document).ready( function () {
+        //     $('#table_mahasiswa').DataTable();
+        // });
 
         // $(document).ready(function() {
         //     toastr.options.timeOut = 10000;

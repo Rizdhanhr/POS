@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use DB;
+use App\Exports\ExportLapPembelian;
+use Maatwebsite\Excel\Facades\Excel;
 
 class LaporanPembelianController extends Controller
 {
@@ -108,5 +110,13 @@ class LaporanPembelianController extends Controller
         // DD($laporan);
 
         return view('lap_pembelian.show',compact('laporan','dari','sampai'));
+    }
+
+    public function cetakexcel(Request $request){
+
+        $dari = $request->dari;
+        $sampai = $request->sampai;
+
+        return Excel::download(new ExportLapPembelian($dari, $sampai), 'pembelian.xlsx');
     }
 }
