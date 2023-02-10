@@ -36,6 +36,7 @@
                         <th scope="col">Nama Barang</th>
                         <th scope="col">Jumlah</th>
                         <th scope="col">Harga</th>
+                        <th scope="col">Subtotal</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -46,10 +47,11 @@
                         <td>{{ $lap->nama_barang }}</td>
                         <td>{{ $lap->jumlah }}</td>
                         <td>{{ $lap->harga }}</td>
+                        <td>{{ $lap->subtotal }}</td>
                     </tr>
                     @empty
                         <tr>
-                            <td align="center" colspan="4">Data Tidak Ditemukan</td>
+                            <td align="center" colspan="5">Data Tidak Ditemukan</td>
                         </tr>
                     @endforelse
                 </tbody>
