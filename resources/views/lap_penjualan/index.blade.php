@@ -2,14 +2,14 @@
 @section('title','Laporan Penjualan')
 @push('css')
     @once
-        
-      
+
+
     @endonce
 @endpush
 @section('content')
 
 <div class="container-fluid pt-4 px-4">
-  
+
     <div class="bg-light text-center rounded p-4">
         <div class="d-flex align-items-center justify-content-between mb-4">
             <h6 class="mb-0">Laporan Penjualan</h6>
@@ -26,10 +26,10 @@
                         <th scope="col">No Transaksi</th>
                         <th scope="col">Jumlah</th>
                         <th scope="col">Harga</th>
-          
+                        <th scope="col">Subtotal</th>
                     </tr>
                 </thead>
-                
+
             </table>
         </div>
     </div>
@@ -56,7 +56,7 @@
                 <input type="date" class="form-control" name="sampai" id="sampai" >
                 <span style="color: red">@error('sampai') {{ $message }} @enderror</span>
             </div>
-         
+
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -95,7 +95,7 @@
         if (month < 10) month = "0" + month;
         if (day < 10) day = "0" + day;
 
-        var today = year + "-" + month + "-" + day;       
+        var today = year + "-" + month + "-" + day;
         document.getElementById("sampai").value = today;
     </script>
     @endonce

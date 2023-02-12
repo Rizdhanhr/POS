@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use DB;
+use App\Exports\ExportLapPenjualan;
+use Maatwebsite\Excel\Facades\Excel;
 
 class LaporanPenjualanController extends Controller
 {
@@ -108,6 +110,13 @@ class LaporanPenjualanController extends Controller
 
         return view('lap_penjualan.show',compact('laporan','dari','sampai'));
 
+    }
+
+    public function cetakexcel(Request $request){
+        $dari = $request->dari;
+        $sampai = $request->sampai;
+
+        return Excel::download(new ExportLapPenjualan($dari, $sampai), 'penjualan.xlsx');
     }
 
 }

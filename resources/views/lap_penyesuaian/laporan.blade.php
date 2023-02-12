@@ -71,7 +71,7 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <form action="{{ route('cari-penjualan') }}" method="GET">
+          <form action="{{ route('cari-penyesuaian') }}" method="GET">
             <div class="mb-3">
                 <label for="exampleFormControlInput1" class="form-label">Dari</label>
                 <input type="date" class="form-control @error('dari') is-invalid @enderror" name="dari" id="exampleFormControlInput1">

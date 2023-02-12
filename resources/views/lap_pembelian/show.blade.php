@@ -46,8 +46,8 @@
                         <td>{{ $no++ }}</td>
                         <td>{{ $lap->nama_barang }}</td>
                         <td>{{ $lap->jumlah }}</td>
-                        <td>{{ $lap->harga }}</td>
-                        <td>{{ $lap->subtotal }}</td>
+                        <td>@currency($lap->harga)</td>
+                        <td>@currency($lap->subtotal)</td>
                     </tr>
                     @empty
                         <tr>

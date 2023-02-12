@@ -143,4 +143,8 @@ class LaporanPenyesuaianController extends Controller
         return view('lap_penyesuaian.cetak',compact('cetak','no_penyesuaian','tgl','catatan'));
     }
 
+    public function cetakexcel(Request $request){
+
+    }
+
 }
