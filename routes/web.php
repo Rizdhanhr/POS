@@ -43,34 +43,47 @@ Route::middleware(['auth','CekLevel'])->group(function (){
 });
 
 Route::middleware(['auth'])->group(function () {
-    Route::resource('/dashboard', DashboardController::class);
+    //Dashboard
     Route::get('/get-data',[DashboardController::class,'getdata']);
+    Route::resource('/dashboard', DashboardController::class);
+    //Atribut & Barang
     Route::resource('/kategori', KategoriController::class);
     Route::resource('/satuan', SatuanController::class);
     Route::resource('/brand', BrandController::class);
     Route::resource('/supplier', SupplierController::class);
     Route::resource('/barang', BarangController::class);
-    Route::resource('/penjualan', PenjualanController::class);
-    Route::resource('/pembelian', PembelianController::class);
-    Route::resource('/datastok', DataStokController::class);
-    Route::resource('/lap-penjualan', LaporanPenjualanController::class);
-    Route::resource('/lap-pembelian', LaporanPembelianController::class);
-    Route::get('/getbarang/{id}', [PembelianController::class,'getbarang']);
+    //Penjualan
     Route::get('/getbarangout/{id}', [PenjualanController::class,'getbarang']);
+    Route::post('/proses-penjualan', [PenjualanController::class,'prosespenjualan']);
+    Route::get('/cetak-penjualan/{no_trx}',[PenjualanController::class,'cetak'])->name('cetak-penjualan');
+    Route::resource('/penjualan', PenjualanController::class);
+    //Pembelian
+    Route::get('/getbarang/{id}', [PembelianController::class,'getbarang']);
     Route::get('/clear/{id}', [PembelianController::class,'clear']);
     Route::post('/proses-pembelian', [PembelianController::class,'prosespembelian']);
-    Route::post('/proses-penjualan', [PenjualanController::class,'prosespenjualan']);
     Route::get('/cetak/{no_trx}',[PembelianController::class, 'cetak']);
-    Route::get('/cetak-penjualan/{no_trx}',[PenjualanController::class,'cetak'])->name('cetak-penjualan');
-    Route::get('/lap-pembelian-cari',[LaporanPembelianController::class,'cari'])->name('cari-pembelian');
+    Route::resource('/pembelian', PembelianController::class);
+    //Data Stok
+    Route::resource('/datastok', DataStokController::class);
+    //Laporan Penjualan
+    Route::get('/export-excel-penjualan',[LaporanPenjualanController::class,'cetakexcel'])->name('excel-penjualan');
     Route::get('/lap-penjualan-cari',[LaporanPenjualanController::class,'cari'])->name('cari-penjualan');
-    Route::resource('/penyesuaian', PenyesuaianController::class);
+    Route::resource('/lap-penjualan', LaporanPenjualanController::class);
+    //Laporan Pembelian
+    Route::get('/lap-pembelian-cari',[LaporanPembelianController::class,'cari'])->name('cari-pembelian');
+    Route::get('/export-excel-pembelian',[LaporanPembelianController::class,'cetakexcel'])->name('excel-pembelian');
+    Route::resource('/lap-pembelian', LaporanPembelianController::class);
+    //Penyesuaian
     Route::post('/proses-penyesuaian',[PenyesuaianController::class,'proses'])->name('proses-penyesuaian');
-    Route::resource('/lap-penyesuaian',LaporanPenyesuaianController::class);
+    Route::resource('/penyesuaian', PenyesuaianController::class);
+    //Laporan Penyesuaian
     Route::get('/lap-penyesuaian-cari',[LaporanPenyesuaianController::class,'cari'])->name('cari-penyesuaian');
     Route::get('/lap-penyesuaian-cetak/{no_penyesuaian}',[LaporanPenyesuaianController::class,'cetak'])->name('lap-penyesuaian-cetak');
-    Route::resource('/stok-menipis', StokMenipisController::class);
-    Route::get('/export-excel-pembelian',[LaporanPembelianController::class,'cetakexcel'])->name('excel-pembelian');
-    Route::get('/export-excel-penjualan',[LaporanPenjualanController::class,'cetakexcel'])->name('excel-penjualan');
     Route::get('/export-excel-penyesuaian',[LaporanPenyesuaianController::class,'cetakexcel'])->name('excel-penyesuaian');
+    Route::resource('/lap-penyesuaian',LaporanPenyesuaianController::class);
+    //Stok Menipis
+    Route::resource('/stok-menipis', StokMenipisController::class);
+
+
+
 });
